@@ -1,0 +1,88 @@
+
+<html>
+    <head>
+        <style>
+            html{
+                height:100%;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            body{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #main{
+                text-align:center;
+                justify-content: center;
+                align-items: center;
+                display:flex;
+                flex-direction: column;
+            }
+            #search{
+                display: flex;
+                flex-direction: row;
+            }
+            .search-button{   
+                display: block;
+                margin-left: 15px;
+                padding: 5px;
+                background: green;
+                border-radius: 5px;
+                width: 70px;
+                align-items: center;
+                text-align: center;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 14px;
+                cursor: pointer;
+                color: #ffffff;
+            }
+
+            #load-button{
+                margin: 20px;
+                cursor: pointer;
+            }
+            
+        </style>
+         <script src="./assets/js/sdk/lib/axios/dist/axios.standalone.js"></script>
+         <script src="./assets/js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+         <script src="./assets/js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
+         <script src="./assets/js/sdk/lib/CryptoJS/components/hmac.js"></script>
+         <script src="./assets/js/sdk/lib/CryptoJS/components/enc-base64.js"></script>
+         <script src="./assets/js/sdk/lib/url-template/url-template.js"></script>
+         <script src="./assets/js/sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+         <script src="./assets/js/sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+         <script src="./assets/js/sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+         <script src="./assets/js/sdk/lib/apiGatewayCore/utils.js"></script>
+         <script src="./assets/js/sdk/apigClient.js"></script>
+
+         <script src="./assets/js/aws-sdk.min.js"></script>
+     
+    </head>
+    
+    <body>
+
+        <div class="" id="main">
+            <h2>Smart Photo Album</h2>    
+            <div id="search">
+                <input type="text" id="search-box" placeholder="Type in your search query" required>
+                <input class="search-button" type="submit" value="Search" onclick="submit_query()">
+            </div> 
+            <input type="file" id='load-file' hidden="hidden">
+            <button id="load-button"type="button">Upload Photo</button>
+            <div class="search-results"></div>
+        </div>
+        <script>
+            var sdk = apigClientFactory.newClient({});
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="./assets/js/bootstrap.min.js"></script>
+        
+        <script src="./assets/js/smartPhoto.js"></script>
+    </body>
+
+</html> 
