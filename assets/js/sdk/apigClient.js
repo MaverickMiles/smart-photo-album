@@ -22,7 +22,7 @@ apigClientFactory.newClient = function (config) {
             secretKey: '',
             sessionToken: '',
             region: '',
-            apiKey: undefined,
+            apiKey: '9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH',
             defaultContentType: 'application/json',
             defaultAcceptType: 'application/json'
         };
@@ -34,7 +34,7 @@ apigClientFactory.newClient = function (config) {
         config.secretKey = '';
     }
     if(config.apiKey === undefined) {
-        config.apiKey = '';
+        config.apiKey = '9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH';
     }
     if(config.sessionToken === undefined) {
         config.sessionToken = '';
@@ -83,6 +83,42 @@ apigClientFactory.newClient = function (config) {
     
     
     
+    apigClient.imageGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['key'], ['body']);
+        
+        var imageGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/image').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['key']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(imageGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.imageOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var imageOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/image').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(imageOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.searchGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
@@ -122,10 +158,28 @@ apigClientFactory.newClient = function (config) {
     apigClient.uploadPut = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['key'], ['body']);
         
         var uploadPutRequest = {
             verb: 'put'.toUpperCase(),
+            path: pathComponent + uritemplate('/upload').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['key']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(uploadPutRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.uploadOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var uploadOptionsRequest = {
+            verb: 'options'.toUpperCase(),
             path: pathComponent + uritemplate('/upload').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
@@ -133,7 +187,7 @@ apigClientFactory.newClient = function (config) {
         };
         
         
-        return apiGatewayClient.makeRequest(uploadPutRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(uploadOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
 

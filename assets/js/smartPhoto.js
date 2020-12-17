@@ -17,7 +17,7 @@ function submit_query(){
 
     callChatbotApi('GET', data).then((response) => {
         console.log(response);
-        display_photos(response);
+        display_photos(response.data);
     });
 
 }
@@ -31,9 +31,13 @@ function upload_photo(data){
 function display_photos(photo_links){
     results= document.getElementById("search-results")
     for (let i =0 ;i<=photo_links.length;i++){
+        if (photo_links[i] == undefined){
+            continue;
+        }
         var img = document.createElement("img");
-        img.src = photo_links[i]
-        results.appendChild(img)
+        img.src = 'https://8tvzonmf07.execute-api.us-east-1.amazonaws.com/dev/image?key='+photo_links[i]
+        results.appendChild(img);
+        
         // $("<img>").attr("src", ).appendTo("search-results");
     }
 }
