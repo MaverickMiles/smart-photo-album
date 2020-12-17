@@ -3,79 +3,79 @@ var loadButton = document.getElementById('load-button');
 
 function callChatbotApi(method, data) {
     // params, body, additionalParams
-    if (method === 'GET'){
-        return sdk.searchGet(data,['q'],{})
-    }
-
-    return sdk.uploadPut({}, data, {});
+    return ;
 }
 
-// function submit_query(){
-//     var query = document.getElementById("search-box").value;
-//     console.log(query);
-//     var data = {"q": query};
+function submit_query(){
+    var query = document.getElementById("search-box").value;
+    console.log(query);
+    var data = {"q": query};
 
-//     callChatbotApi('GET', data).then((response) => {
-//         console.log(response);
-//         display_photos(response.data);
-//     });
+    sdk.searchGet(data,{},{}).then((response) => {
+        console.log(response);
+        display_photos(response.data);
+    });
 
-// }
+}
 
-function upload_photo(data){
-    callChatbotApi('put', data).then((response) => {
+function upload_photo(key, data){
+    param = {'key':key}
+    additionalParam = {'headers':{'Content-Type':'application/octet-stream'}};
+    sdk.uploadPut(param, data, additionalParam).then((response) => {
         console.log(response);
     });
 }
 
 function display_photos(photo_links){
     results= document.getElementById("search-results")
+    results.innerHTML = "";
     for (let i =0 ;i<=photo_links.length;i++){
         if (photo_links[i] == undefined){
             continue;
         }
         var img = document.createElement("img");
         img.src = 'https://8tvzonmf07.execute-api.us-east-1.amazonaws.com/dev/image?key='+photo_links[i]
+
         results.appendChild(img);
         
-        // $("<img>").attr("src", ).appendTo("search-results");
     }
 }
 
-function submit_query(){
-    var query = document.getElementById("search-box").value;
-    var xhr = new XMLHttpRequest();
-    // xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function() {
-    if(this.readyState === 4) {
-        console.log(this.responseText);
-        display_photos(this.responseText);
-    }
-    });
-    query = query.replace(" ", "%20")
-    url = "https://8tvzonmf07.execute-api.us-east-1.amazonaws.com/dev/search?q="+query
-    xhr.open("GET", url);
-    xhr.setRequestHeader("x-api-key", "9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH");
+// function submit_query(){
+//     var query = document.getElementById("search-box").value;
+//     query = query.replace(" ", "%20")
 
-    xhr.send();
-}
+//     var settings = {
+//         "url": "https://8tvzonmf07.execute-api.us-east-1.amazonaws.com/dev/search?q="+query,
+//         "method": "GET",
+//         "timeout": 0,
+//         "headers": {
+//             "X-API-KEY": "9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH"
+//         },
+//     };
 
-function upload_photo(data){
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+//     $.ajax(settings).done(function (response) {
+//         console.log(response);
+//         display_photos(response);
+//     });
+// }
 
-    xhr.addEventListener("readystatechange", function() {
-    if(this.readyState === 4) {
-        console.log(this.responseText);
-    }
-    });
+// function upload_photo(data){
+//     var xhr = new XMLHttpRequest();
+//     xhr.withCredentials = true;
 
-    xhr.open("PUT", "https://8tvzonmf07.execute-api.us-east-1.amazonaws.com/dev/upload");
-    xhr.setRequestHeader("x-api-key", "9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH");
-    xhr.setRequestHeader("Content-Type", "image/jpeg");
+//     xhr.addEventListener("readystatechange", function() {
+//     if(this.readyState === 4) {
+//         console.log(this.responseText);
+//     }
+//     });
 
-    xhr.send(data);
-}
+//     xhr.open("PUT", "https://8tvzonmf07.execute-api.us-east-1.amazonaws.com/dev/upload");
+//     xhr.setRequestHeader("x-api-key", "9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH");
+//     xhr.setRequestHeader("Content-Type", "image/jpeg");
+
+//     xhr.send(data);
+// }
 
 loadButton.addEventListener('click', function(){
     loadFile.click();
@@ -85,11 +85,12 @@ loadFile.addEventListener('change', e => {
     console.log(loadFile);
     if (loadFile){
         var file = e.target.files[0]; 
+        console.log(file.name);
         var reader = new FileReader();
         reader.readAsBinaryString(file);
         reader.onload = readerEvent => {
             image = readerEvent.target.result; 
-            upload_photo(image)
+            upload_photo(file.name, image);
         }
     }
     else{
