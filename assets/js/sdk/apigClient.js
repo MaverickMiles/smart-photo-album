@@ -22,7 +22,7 @@ apigClientFactory.newClient = function (config) {
             secretKey: '',
             sessionToken: '',
             region: '',
-            apiKey: '9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH',
+            apiKey: undefined,
             defaultContentType: 'application/json',
             defaultAcceptType: 'application/json'
         };
@@ -34,7 +34,7 @@ apigClientFactory.newClient = function (config) {
         config.secretKey = '';
     }
     if(config.apiKey === undefined) {
-        config.apiKey = '9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH';
+        config.apiKey = '';
     }
     if(config.sessionToken === undefined) {
         config.sessionToken = '';
