@@ -45,7 +45,7 @@ function display_photos(photo_links){
 function submit_query(){
     var query = document.getElementById("search-box").value;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    // xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function() {
     if(this.readyState === 4) {
         console.log(this.responseText);
