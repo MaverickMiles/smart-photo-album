@@ -1,10 +1,7 @@
 var loadFile = document.getElementById('load-file');
 var loadButton = document.getElementById('load-button');
+const API_KEY = '9GreZxDXhs13dVykEulvy4997ihG6kL57WEmbXCH';
 
-function callChatbotApi(method, data) {
-    // params, body, additionalParams
-    return ;
-}
 
 function submit_query(){
     var query = document.getElementById("search-box").value;
@@ -19,9 +16,13 @@ function submit_query(){
 }
 
 function upload_photo(key, data){
-    param = {'key':key}
-    additionalParam = {'headers':{'Content-Type':'application/octet-stream'}};
-    sdk.uploadPut(param, data, additionalParam).then((response) => {
+    param = {
+        'Content-Type':'image/jpeg',
+        'key':key
+            }
+    // additionalParam = {'headers':{}};
+
+    sdk.uploadPut(param, data, {}).then((response) => {
         console.log(response);
     });
 }
@@ -40,6 +41,28 @@ function display_photos(photo_links){
         
     }
 }
+
+loadButton.addEventListener('click', function(){
+    console.log("Ack ME");
+    loadFile.click();
+});
+
+loadFile.addEventListener('change', e => {
+    console.log(loadFile);
+    if (loadFile){
+        var file = e.target.files[0]; 
+        console.log(file.name);
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.onload = readerEvent => {
+            image = readerEvent.target.result; 
+            upload_photo(file.name, image);
+        }
+    }
+    else{
+        alert("Invalid file. Please choose another file.");
+    }
+});
 
 // function submit_query(){
 //     var query = document.getElementById("search-box").value;
@@ -76,24 +99,3 @@ function display_photos(photo_links){
 
 //     xhr.send(data);
 // }
-
-loadButton.addEventListener('click', function(){
-    loadFile.click();
-});
-
-loadFile.addEventListener('change', e => {
-    console.log(loadFile);
-    if (loadFile){
-        var file = e.target.files[0]; 
-        console.log(file.name);
-        var reader = new FileReader();
-        reader.readAsBinaryString(file);
-        reader.onload = readerEvent => {
-            image = readerEvent.target.result; 
-            upload_photo(file.name, image);
-        }
-    }
-    else{
-        alert("Invalid file. Please choose another file.");
-    }
-});

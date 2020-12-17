@@ -48,14 +48,15 @@
             }
 
             img{
-                width: 150px;
+                width: 180px;
                 height: 250px;
-                margin-right: 15px;
+                margin: 15px;
             }
             
             #search-results{
                 display: flex;
-                border: 1px dotted;
+                align-items: center;
+                border: 0.5px dotted;
 
             }
         </style>
@@ -87,13 +88,14 @@
             <button id="load-button"type="button">Upload Photo</button>
             <div id="search-results"></div>
         </div>
-        <script>
-            var sdk = apigClientFactory.newClient({});
-        </script>
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
         
         <script src="./assets/js/smartPhoto.js"></script>
+        <script>
+            var sdk = apigClientFactory.newClient({});
+        </script>
     </body>
 
 </html> 
